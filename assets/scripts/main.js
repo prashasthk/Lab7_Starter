@@ -49,20 +49,20 @@ function initializeServiceWorker() {
      // B2. TODO - Listen for the 'load' event on the window object.
      // Steps B3-B6 will be *inside* the event listener's function created in B2
       window.addEventListener('load', async (event) => {
-          try {
-            // B3. TODO - Register './sw.js' as a service worker (The MDN article
-            //            "Using Service Workers" will help you here)
-            const registration = await navigator.serviceWorker.register("sw.js", {
-              scope: ".",
-            });
-            // B4. TODO - Once the service worker has been successfully registered, console
-            //            log that it was successful.
-            console.log('Registration successful');
-          } catch (error) {
-            // B5. TODO - In the event that the service worker registration fails, console
-            //            log that it has failed.
-            console.error(`Registration failed with ${error}`);
-          }
+        try {
+          // B3. TODO - Register './sw.js' as a service worker (The MDN article
+          //            "Using Service Workers" will help you here)
+          await navigator.serviceWorker.register("sw.js", {
+            scope: ".",
+          });
+          // B4. TODO - Once the service worker has been successfully registered, console
+          //            log that it was successful.
+          console.log('Registration successful');
+        } catch (error) {
+          // B5. TODO - In the event that the service worker registration fails, console
+          //            log that it has failed.
+          console.error(`Registration failed with ${error}`);
+        }
       })
   }
   // STEPS B6 ONWARDS WILL BE IN /sw.js
@@ -102,22 +102,22 @@ async function getRecipes() {
       //            a try / catch block. A6-A9 will be in the try portion, A10-A11
       //            will be in the catch portion.
       try {
-          // A6. TODO - For each URL in that array, fetch the URL - MDN also has a great
-          //            article on fetch(). NOTE: Fetches are ASYNCHRONOUS, meaning that
-          //            you must either use "await fetch(...)" or "fetch.then(...)". This
-          //            function is using the async keyword so we recommend "await"
-          const response = await fetch(recipe);
-          // A7. TODO - For each fetch response, retrieve the JSON from it using .json().
-          //            NOTE: .json() is ALSO asynchronous, so you will need to use
-          //            "await" again
-          const responseJSON = await response.json();
-          // A8. TODO - Add the new recipe to the recipes array
-          recipes.push(responseJSON);
+        // A6. TODO - For each URL in that array, fetch the URL - MDN also has a great
+        //            article on fetch(). NOTE: Fetches are ASYNCHRONOUS, meaning that
+        //            you must either use "await fetch(...)" or "fetch.then(...)". This
+        //            function is using the async keyword so we recommend "await"
+        const response = await fetch(recipe);
+        // A7. TODO - For each fetch response, retrieve the JSON from it using .json().
+        //            NOTE: .json() is ALSO asynchronous, so you will need to use
+        //            "await" again
+        const responseJSON = await response.json();
+        // A8. TODO - Add the new recipe to the recipes array
+        recipes.push(responseJSON);
       } catch (error) {
-           // A10. TODO - Log any errors from catch using console.error
-          console.error(error);
-           // A11. TODO - Pass any errors to the Promise's reject() function
-          reject(error);
+        // A10. TODO - Log any errors from catch using console.error
+        console.error(error);
+        // A11. TODO - Pass any errors to the Promise's reject() function
+        reject(error);
       }
     }
     // A9. TODO - Check to see if you have finished retrieving all of the recipes,
